@@ -1,0 +1,58 @@
+package com.example.andrisseaurelio.txungamoyo;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+public class ConsumirJsonActivity extends MainActivity {
+
+@Override
+protected void onCreate(Bundle savedInstanceState) {
+super.onCreate(savedInstanceState);
+new DownloadJsonAsyncTask()
+.execute("");
+}
+@Override
+protected void onListItemClick(ListView l, View v, int position, long id) {
+super.onListItemClick(l, v, position, id);
+
+Items items = (Items) l.getAdapter().getItem(position);
+
+Intent intent = new Intent(this, InformacoesActivity.class);
+intent.putExtra("Items", items);
+startActivity(intent);
+}
+
+@Override
+protected void onPreExecute() {
+super.onPreExecute();
+dialog = ProgressDialog.show(ConsumirJsonActivity.this, "Aguarde",
+"Fazendo download do JSON");
+}
+
+@Override
+protected List<Pessoa> doInBackground(String... params) {
+String urlString = params[0];
+HttpClient httpclient = new DefaultHttpClient();
+HttpGet httpget = new HttpGet(urlString);
+try {
+HttpResponse response = httpclient.execute(httpget);
+HttpEntity entity = response.getEntity();
+if (entity != null) {
+InputStream instream = entity.getContent();
+String json = getStringFromInputStream(instream);
+instream.close();
+List<Items> items = getUsuario(json);
+return items;
+}
+} catch (Exception e) {
+Log.e("Erro", "Falha ao acessar Web service", e);
+}
+return null;
+}
+}

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+ xmlns:tools="http://schemas.android.com/tools"
+ android:id="@+id/items"
+ android:layout_width="match_parent"
+ android:layout_height="match_parent"
+ android:entries="@array/Items" />
+
+
+
+    <string-array name="items">
+                  <item >Cadastro</item>
+                  <item >Login</item>
+                  <item >Home</item>
+                  <item >MyOrders</item>
+                  <item >MinhaConta</item>
+                  <item >Finalizar Compras</item>
+                  <item >Carrinho</item>
+                  <item >Sair</item>
+
+    </string-array>
+
+
+</LinearLayout>
